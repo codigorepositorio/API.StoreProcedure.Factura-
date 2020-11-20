@@ -16,8 +16,7 @@ namespace CANVIA.RETO.Factura.API.Controllers
         private readonly ItemService _itemService;
 
         public ItemController(ItemService itemService )
-        {
-            
+        {            
             _itemService = itemService;
         }
 
@@ -25,7 +24,7 @@ namespace CANVIA.RETO.Factura.API.Controllers
         public async Task<IActionResult> GetByIdItem(int codigo)
         {
             var result = await _itemService.GetById(codigo);
-            if (result.codigoITem == 0 && result.producto == null)
+            if (result.codigoItem == 0 && result.descripcion == null)
                 return BadRequest("El Item no existe.");
 
             return Ok(result);
@@ -48,7 +47,7 @@ namespace CANVIA.RETO.Factura.API.Controllers
             {
 
                 var result = await _itemService.Create(itemDetalleForCreationDto);
-                return CreatedAtRoute("itemCreate", new { codigo = result.codigoITem }, result);
+                return CreatedAtRoute("itemCreate", new { codigo = result.codigoItem }, result);
             }
             catch (Exception ex)
             {

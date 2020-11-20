@@ -13,7 +13,7 @@ namespace CANVIA.RETO.Factura.Entities.DTOs
         public decimal ImporteTotal { get; set; }
         public DateTime Fecha { get; set; }  
         
-        public ICollection<ItemDetalleDto> itemDetalles  { get; set; }
+        public IEnumerable<ItemDetalleConsultaDto> itemDetalles  { get; set; }
 
 }
 

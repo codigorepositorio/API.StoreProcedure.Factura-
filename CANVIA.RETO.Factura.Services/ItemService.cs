@@ -31,7 +31,9 @@ namespace CANVIA.RETO.Factura.Services
         public async Task<IEnumerable<ItemDetalleDto>> GetAll()
         {
             var result = await _itemRepository.GetAll();
+
             var lstItemDetalle = _mapper.Map<IEnumerable<ItemDetalleDto>>(result);
+
             return lstItemDetalle;
         }
 
@@ -48,8 +50,8 @@ namespace CANVIA.RETO.Factura.Services
         }
 
         public async Task<string> Update(ItemDetalleForUpdateDto itemDetalleForUpdateDto)
-        { 
-            var result = await _itemRepository.GetById(itemDetalleForUpdateDto.codigo);
+        {
+            var result = await _itemRepository.GetById(itemDetalleForUpdateDto.codigoItem);
 
             if (result.ItemDetalleID == 0)
             {
