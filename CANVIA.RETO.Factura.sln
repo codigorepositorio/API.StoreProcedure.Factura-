@@ -1,0 +1,54 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30320.27
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CANVIA.RETO.Factura.API", "CANVIA.RETO.Factura.API\CANVIA.RETO.Factura.API.csproj", "{CDE6D3F7-E468-4787-8808-23B024BDEE68}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Entities", "Entities", "{77ACA011-7D8B-4BF6-8E24-469437D9B493}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repository", "Repository", "{E516588D-4029-4731-80FB-994E5A7EE5B1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{ACF91085-F34E-4F3E-B76B-36CB31C6DC03}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CANVIA.RETO.Factura.Entities", "CANVIA.RETO.Factura.Entities\CANVIA.RETO.Factura.Entities.csproj", "{45103AEC-9861-4D00-8DCB-27B728997539}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CANVIA.RETO.Factura.Repository", "CANVIA.RETO.Factura.Repository\CANVIA.RETO.Factura.Repository.csproj", "{65824B7C-B96B-4042-BD19-BC9D2D02E85D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CANVIA.RETO.Factura.Services", "CANVIA.RETO.Factura.Services\CANVIA.RETO.Factura.Services.csproj", "{2008C056-6B3F-4E20-9AD0-450CFB98B7F1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CDE6D3F7-E468-4787-8808-23B024BDEE68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDE6D3F7-E468-4787-8808-23B024BDEE68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDE6D3F7-E468-4787-8808-23B024BDEE68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDE6D3F7-E468-4787-8808-23B024BDEE68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45103AEC-9861-4D00-8DCB-27B728997539}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45103AEC-9861-4D00-8DCB-27B728997539}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45103AEC-9861-4D00-8DCB-27B728997539}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45103AEC-9861-4D00-8DCB-27B728997539}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65824B7C-B96B-4042-BD19-BC9D2D02E85D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65824B7C-B96B-4042-BD19-BC9D2D02E85D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65824B7C-B96B-4042-BD19-BC9D2D02E85D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65824B7C-B96B-4042-BD19-BC9D2D02E85D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2008C056-6B3F-4E20-9AD0-450CFB98B7F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2008C056-6B3F-4E20-9AD0-450CFB98B7F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2008C056-6B3F-4E20-9AD0-450CFB98B7F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2008C056-6B3F-4E20-9AD0-450CFB98B7F1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{45103AEC-9861-4D00-8DCB-27B728997539} = {77ACA011-7D8B-4BF6-8E24-469437D9B493}
+		{65824B7C-B96B-4042-BD19-BC9D2D02E85D} = {E516588D-4029-4731-80FB-994E5A7EE5B1}
+		{2008C056-6B3F-4E20-9AD0-450CFB98B7F1} = {ACF91085-F34E-4F3E-B76B-36CB31C6DC03}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D10FAA47-F792-4199-95F7-DD358495DE51}
+	EndGlobalSection
+EndGlobal
