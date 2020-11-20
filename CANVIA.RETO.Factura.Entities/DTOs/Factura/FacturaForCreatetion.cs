@@ -9,7 +9,7 @@ namespace CANVIA.RETO.Factura.Entities.DTOs
         public int codigoFactura { get; set; }
         public int codigoCliente { get; set; }
         public string numeroFactura { get; set; }
-        public decimal TotalPago { get; set; }
-        public ICollection<FacturaDetalleForCreatetion> FacturaDetalle { get; set; }
+        public decimal importeTotal { get; set; }
+        public ICollection<FacturaDetalleForCreatetion> itemDetalles { get; set; }
     }
 }

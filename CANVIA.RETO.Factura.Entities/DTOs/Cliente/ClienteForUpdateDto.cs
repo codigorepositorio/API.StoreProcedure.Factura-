@@ -2,7 +2,7 @@
 {
     public class ClienteForUpdateDto
     {
-        public int Codigo { get; set; }
+        public int codigoCliente { get; set; }
         public string tipo { get; set; }
         public string nombres { get; set; }
         public string apellidos { get; set; }

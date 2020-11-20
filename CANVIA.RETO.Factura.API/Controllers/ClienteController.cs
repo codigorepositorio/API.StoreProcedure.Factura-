@@ -22,7 +22,7 @@ namespace CANVIA.RETO.Factura.API.Controllers
         public async Task<IActionResult> GetByIdCliente(int codigo)
         {
             var result = await _clienteService.GetById(codigo);
-            if (result.Codigo == 0 && result.nombres == null)
+            if (result.codigoCliente == 0 && result.nombres == null)
                 return BadRequest("El cliente no existe.");
 
             return Ok(result);
@@ -45,7 +45,7 @@ namespace CANVIA.RETO.Factura.API.Controllers
             {
 
                 var result = await _clienteService.Create(clienteForCreationDto);
-                return CreatedAtRoute("clienteCreate", new { codigo = result.Codigo }, result);
+                return CreatedAtRoute("clienteCreate", new { codigo = result.codigoCliente }, result);
             }
             catch (Exception ex)
             {

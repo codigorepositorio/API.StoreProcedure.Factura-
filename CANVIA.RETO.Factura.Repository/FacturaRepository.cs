@@ -57,7 +57,7 @@ namespace CANVIA.RETO.Factura.Repository
                         }
                     }
 
-                    foreach (var item in facturaCabecera.FacturaDetalle)
+                    foreach (var item in facturaCabecera.itemDetalles)
                     {
                         if (item.FacturaDetalleID == 0 && item.FacturaCabeceraID == 0)
                         {
@@ -80,7 +80,7 @@ namespace CANVIA.RETO.Factura.Repository
                     }
 
                     facturaCabecera.FacturaCabeceraID = id;
-                    facturaCabecera.FacturaDetalle = lstFacturaDetalle;
+                    facturaCabecera.itemDetalles = lstFacturaDetalle;
                     return facturaCabecera;
 
                 }

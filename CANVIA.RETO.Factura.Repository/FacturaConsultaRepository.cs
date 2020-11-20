@@ -88,8 +88,8 @@ namespace CANVIA.RETO.Factura.Repository
             int posFechaHora = reader.GetOrdinal("FechaHora");
             return new FacturaCabeceraDto()
             {
-                FacturaCabeceraID = reader.GetInt32(posFacturaCabecera),
-                ClienteID = reader.GetInt32(posClienteID),
+                codigoFactura = reader.GetInt32(posFacturaCabecera),
+                codigoCliente = reader.GetInt32(posClienteID),
                 NumeroFactura = reader.GetString(posNumeroFactura),
                 ImporteTotal = reader.GetDecimal(posImporteTotal),
                 tipo = reader.GetString(posTipoPersona),

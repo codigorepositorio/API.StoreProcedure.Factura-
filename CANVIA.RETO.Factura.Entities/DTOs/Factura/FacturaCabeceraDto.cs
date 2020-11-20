@@ -6,8 +6,8 @@ namespace CANVIA.RETO.Factura.Entities.DTOs
 {
     public class FacturaCabeceraDto
     {
-        public int FacturaCabeceraID { get; set; }
-        public decimal ClienteID { get; set; }
+        public int codigoFactura { get; set; }
+        public decimal codigoCliente { get; set; }
         public string tipo { get; set; }
         public string NumeroFactura { get; set; }
         public decimal ImporteTotal { get; set; }

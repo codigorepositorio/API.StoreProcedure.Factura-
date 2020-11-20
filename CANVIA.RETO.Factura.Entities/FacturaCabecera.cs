@@ -11,6 +11,6 @@ namespace CANVIA.RETO.Factura.Entities
         public DateTime Fecha { get; set; }
         public int ClienteID { get; set; }
 
-        public ICollection<FacturaDetalle> FacturaDetalle { get; set; }
+        public ICollection<FacturaDetalle> itemDetalles { get; set; }
     }
 }

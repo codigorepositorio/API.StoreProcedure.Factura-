@@ -49,14 +49,14 @@ namespace CANVIA.RETO.Factura.Services
         public async Task<string> Update(ClienteForUpdateDto clienteForUpdateDto)
         {
             var serchCliente = await _clienteRepository.GetAll();
-            var serchClienteById = serchCliente.Where(c => c.clienteID.Equals(clienteForUpdateDto.Codigo));
+            var serchClienteById = serchCliente.Where(c => c.clienteID.Equals(clienteForUpdateDto.codigoCliente));
 
             if (serchClienteById.Count() == 0)
             {
-                return "El Cliente con Còdigo : " + clienteForUpdateDto.Codigo + "No existe";
+                return "El Cliente con Còdigo : " + clienteForUpdateDto.codigoCliente + "No existe";
             }
 
-            var result = await _clienteRepository.GetById(clienteForUpdateDto.Codigo);
+            var result = await _clienteRepository.GetById(clienteForUpdateDto.codigoCliente);
 
             if (result.clienteID == 0)
             {
