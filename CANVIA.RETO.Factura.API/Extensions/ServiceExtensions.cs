@@ -1,5 +1,7 @@
 ﻿using CANVIA.RETO.Factura.Repository;
 using CANVIA.RETO.Factura.Services;
+using LoggerService;
+using LoggerServices;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -33,5 +35,9 @@ namespace CANVIA.RETO.Factura.API.Extensions
               .AllowAnyMethod());
             return app;
         }
+
+
+        public static void ConfigureLoggerService(this IServiceCollection services) =>
+        services.AddScoped<ILoggerManager, LoggerManager>();
     }
 }

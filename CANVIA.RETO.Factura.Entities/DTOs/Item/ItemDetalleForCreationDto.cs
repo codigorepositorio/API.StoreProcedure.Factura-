@@ -2,10 +2,8 @@
 
 namespace CANVIA.RETO.Item.DTOs
 { 
-    public class ItemDetalleForCreationDto
+    public class ItemDetalleForCreationDto : ItemDetalleForValidationDto
     {
-        public int codigoItem { get; set; }                
-        public string descripcion { get; set; }
-        public decimal precio { get; set; }
+        public int codigoItem { get; set; }
     }
 }

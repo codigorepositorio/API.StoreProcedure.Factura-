@@ -49,35 +49,15 @@ namespace CANVIA.RETO.Factura.Services
 
         }
 
-        public async Task<string> Update(ItemDetalleForUpdateDto itemDetalleForUpdateDto)
-        {
-            var result = await _itemRepository.GetById(itemDetalleForUpdateDto.codigoItem);
-
-            if (result.ItemDetalleID == 0)
-            {
-                return "El Item con Còdigo : " + result.ItemDetalleID + "No existe";
-            }
-
+        public void Update(ItemDetalleForUpdateDto itemDetalleForUpdateDto)
+        {           
             var ItemDetalleEntity = _mapper.Map<ItemDetalle>(itemDetalleForUpdateDto);
-
             _itemRepository.Update(ItemDetalleEntity);
-
-            return "El Item con Còdigo : " + result.ItemDetalleID + "Modificado";
-
         }
 
-        public async Task<string> Delete(int itemDetalleID)
-        {
-            var result = await _itemRepository.GetById(itemDetalleID);
-            if (result.ItemDetalleID == 0)
-            {
-                return "El Item con Còdigo : " + result.ItemDetalleID + " No existe.";
-            }
-
-            _itemRepository.Delete(result.ItemDetalleID);
-
-            return "El Item con Còdigo : " + result.ItemDetalleID + " Eliminado.";
+        public void  Delete(int itemDetalleID)
+        {            
+            _itemRepository.Delete(itemDetalleID);            
         }
-
     }
 }

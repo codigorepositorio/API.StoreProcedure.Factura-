@@ -1,11 +1,12 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace CANVIA.RETO.Item.DTOs
 { 
-    public class ItemDetalleForUpdateDto
+    public class ItemDetalleForUpdateDto : ItemDetalleForValidationDto
     {
-        public int codigoItem { get; set; }                
-        public string descripcion { get; set; }
-        public decimal precio { get; set; }
+        [Required(ErrorMessage = "El codigo de Item es requerido")]
+        [Range(1, int.MaxValue, ErrorMessage = "El codigo de Item mayor a 0")]
+        public int codigoItem { get; set; }
     }
 }

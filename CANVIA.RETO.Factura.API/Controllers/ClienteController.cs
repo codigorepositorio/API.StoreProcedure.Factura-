@@ -3,29 +3,34 @@ using CANVIA.RETO.Factura.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using CANVIA.RETO.Factura.Entities.DTOs;
-using System;
+using LoggerServices;
 
 namespace CANVIA.RETO.Factura.API.Controllers
 {
-    [Route("api/Cliente")]
+    [Route("api/cliente")]
     [ApiController]
     public class ClienteController : ControllerBase
     {
         private readonly ClienteService _clienteService;
-
-        public ClienteController(ClienteService clienteService)
+        private readonly ILoggerManager _logger;
+        public ClienteController(ClienteService clienteService, ILoggerManager logger)
         {
             _clienteService = clienteService;
+            _logger = logger;
         }
 
-        [HttpGet("{codigo:int}", Name = "clienteCreate")]
-        public async Task<IActionResult> GetByIdCliente(int codigo)
+        [HttpGet("{id:int}", Name = "clienteCreate")]
+        public async Task<IActionResult> GetByIdCliente(int id)
         {
-            var result = await _clienteService.GetById(codigo);
-            if (result.codigoCliente == 0 && result.nombres == null)
-                return BadRequest("El cliente no existe.");
+            var result = await _clienteService.GetById(id);
 
+            if (result.codigoCliente == 0)
+            {
+                _logger.LogInfo($"Cliente con id: {id} no existe en la base de datos");
+                return NotFound();
+            }
             return Ok(result);
+
         }
 
         [HttpGet]
@@ -33,57 +38,72 @@ namespace CANVIA.RETO.Factura.API.Controllers
         {
             var result = await _clienteService.GetAll();
             if (result.Count() == 0)
-                return BadRequest("No existe registro de clientes.");
-
+            {
+                _logger.LogInfo($"No existe registro de clientes en la base de datos");
+                return NotFound();
+            }                
             return Ok(result);
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateCliente([FromBody] ClienteForCreationDto clienteForCreationDto)
         {
-            try
+            if (clienteForCreationDto == null)
             {
-
-                var result = await _clienteService.Create(clienteForCreationDto);
-                return CreatedAtRoute("clienteCreate", new { codigo = result.codigoCliente }, result);
+                _logger.LogError("El objeto clienteForCreationDto enviado desde el cliente es nulo.");
+                return BadRequest("No puede enviar un cliente nulo.");
             }
-            catch (Exception ex)
+            if (!ModelState.IsValid)
             {
-
-                return BadRequest(ex.Message.ToString());
+                _logger.LogError("Estado de modelo no válido para el objeto EmployeeForCreationDto");
+                return UnprocessableEntity(ModelState);
             }
-
+            var result = await _clienteService.Create(clienteForCreationDto);
+            return CreatedAtRoute("clienteCreate", new { codigo = result.codigoCliente }, result);
         }
 
         [HttpPut]
         public async Task<IActionResult> UpdateCliente([FromBody] ClienteForUpdateDto clienteForUpdateDto)
-        {
-            try
-            {
-                if (clienteForUpdateDto.nombres == null)
-                    return BadRequest("No puede enviar un cliente nulo.");
+        {            
 
-                var result = await _clienteService.Update(clienteForUpdateDto);
-                return NoContent();
-            }
-            catch (Exception ex)
+            if (clienteForUpdateDto == null)
             {
-                return BadRequest(ex.Message.ToString());
+                _logger.LogError("Estado de modelo no válido para el objeto clienteForUpdateDto");
+                return BadRequest("No puede enviar un cliente nulo.");
             }
+
+            if (!ModelState.IsValid)
+            {
+                _logger.LogError("Invalid model state for the clienteForUpdateDto object");
+                return BadRequest(ModelState);
+            }
+
+            var result = await _clienteService.GetById(clienteForUpdateDto.codigoCliente);
+
+            if (result.codigoCliente == 0)
+            {
+                _logger.LogInfo($"Cliente con id: {clienteForUpdateDto.codigoCliente} no existe en la base de datos");
+                return NotFound();
+            }
+
+            _clienteService.Update(clienteForUpdateDto);
+            return NoContent();
+
+
         }
 
         [HttpDelete("{codigo:int}")]
         public async Task<IActionResult> DeleteCliente(int codigo)
         {
-            try
+            var result = await _clienteService.GetById(codigo);
+
+            if (result.codigoCliente == 0)
             {
-                var result = await _clienteService.Delete(codigo);
-                return Ok(new { result });
+                _logger.LogInfo($"Cliente con id: {codigo} no existe en la base de datos");
+                return NotFound();
             }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message.ToString());
-            }
+            _clienteService.Delete(result.codigoCliente);
+            return NoContent();
         }
     }
 }

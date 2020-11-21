@@ -5,7 +5,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Extensions\ExceptionMiddlewareExtensions.cs~RF1324be64.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.10" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\CANVIA.RETO.Factura.Services\CANVIA.RETO.Factura.Services.csproj" />
+    <ProjectReference Include="..\LoggerService\LoggerServices.csproj" />
   </ItemGroup>
 
 

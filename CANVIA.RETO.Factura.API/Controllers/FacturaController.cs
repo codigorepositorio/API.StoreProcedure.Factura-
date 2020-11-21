@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using CANVIA.RETO.Factura.Entities.DTOs;
 using CANVIA.RETO.Factura.Services;
-using Microsoft.AspNetCore.Http;
+using LoggerServices;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CANVIA.RETO.Factura.API.Controllers
@@ -14,10 +12,12 @@ namespace CANVIA.RETO.Factura.API.Controllers
     public class FacturaController : ControllerBase
     {
         private readonly FacturaService _facturaService;
+        private readonly ILoggerManager _logger;
 
-        public FacturaController(FacturaService facturaService)
+        public FacturaController(FacturaService facturaService, ILoggerManager logger)
         {
             _facturaService = facturaService;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -25,38 +25,47 @@ namespace CANVIA.RETO.Factura.API.Controllers
         {
             var result = await _facturaService.GetAll();
             if (result.Count() == 0)
-                return BadRequest("No existe registro de Facturas.");
-
+            {
+                _logger.LogInfo($"No existe registro de Factura en la base de datos");
+                return NotFound();
+            }
             return Ok(result);
         }
 
 
 
-        [HttpGet("{Id:int}")]
-        public async Task<IActionResult> GetAllFacturaById(int Id)
+        [HttpGet("{Id:codigo}", Name = "facturaCreate")]
+        public async Task<IActionResult> GetAllFacturaById(int codigo)
         {
-            var result = await _facturaService.GetById(Id);
-            //if (result.Count() == 0)
-            //    return BadRequest("No existe registro de Facturas.");
+            var result = await _facturaService.GetById(codigo);
 
+            if (result.codigoFactura == 0)
+            {
+                _logger.LogInfo($"Factura con id: {codigo} no existe en la base de datos");
+                return NotFound();
+            }
             return Ok(result);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> CreateFactura([FromBody] FacturaForCreatetion facturaForCreatetion)
-        {
-            try
-            {
-                if (facturaForCreatetion.codigoCliente == 0)
-                    return BadRequest("No puede enviar un cliente con còdigo 0.");
-                var result = await _facturaService.Create(facturaForCreatetion);
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message.ToString());
-            }
 
+    [HttpPost]
+    public async Task<IActionResult> CreateFactura([FromBody] FacturaForCreatetion facturaForCreatetion)
+    {
+
+        if (facturaForCreatetion == null)
+        {
+            _logger.LogError("El objeto facturaForCreatetion enviado desde el cliente es nulo.");
+            return BadRequest("No puede enviar una Factura nulo.");
         }
+        if (!ModelState.IsValid)
+        {
+            _logger.LogError("Estado de modelo no válido para el objeto facturaForCreatetion");
+            return UnprocessableEntity(ModelState);
+        }
+
+        var result = await _facturaService.Create(facturaForCreatetion);
+        return CreatedAtRoute("facturaCreate", new { codigo = result.FacturaCabeceraID }, result);
+
     }
+}
 }
