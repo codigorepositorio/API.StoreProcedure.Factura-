@@ -33,6 +33,8 @@ namespace CANVIA.RETO.Factura.API.Extensions
             //Cliente Service
             services.AddScoped<IClienteRepository, ClienteRepository>();
             services.AddScoped<ClienteService>();
+            services.AddScoped<brCliente>();
+
 
             //ItemDetalle Service
             services.AddScoped<IItemRepository, ItemRepository>();
@@ -48,3 +50,4 @@ namespace CANVIA.RETO.Factura.API.Extensions
         }
     }
 }
+

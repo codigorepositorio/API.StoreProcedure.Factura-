@@ -1,6 +1,7 @@
 ﻿using CANVIA.RETO.Factura.Entities;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 
@@ -141,13 +142,12 @@ namespace CANVIA.RETO.Factura.Repository
                 }
             }
         }
-
-
         private Cliente clienteReader(SqlDataReader reader)
         {
             return new Cliente()
             {
-                clienteID = (int)reader["ClienteID"],
+                ///clienteID = (int)reader["ClienteID"],
+                clienteID = reader.GetInt32(0),
                 TipoPersona = (string)reader["TipoPersona"],                 
                 Nombres = (string)reader["Nombres"],
                 Apellidos = (string)reader["Apellidos"],
@@ -159,8 +159,46 @@ namespace CANVIA.RETO.Factura.Repository
             };
         }
 
+        public async Task<IEnumerable<Cliente>>Listar(SqlConnection con)
+        {
+            List<Cliente> lstCliente = null;
+            SqlCommand cmd = new SqlCommand("Usp_Cliente_GetAll", con);
+            cmd.CommandType = CommandType.StoredProcedure;
 
+            SqlDataReader reader = cmd.ExecuteReader(CommandBehavior.SingleResult); //Lee el primer select, los demas ignora.
+            if (reader != null)
+            {
+          
+                lstCliente = new List<Cliente>();
+                Cliente objCliente;
+                int posclienteID = reader.GetOrdinal("clienteID");
+                int posTipoPersona = reader.GetOrdinal("TipoPersona");
+                int posNombres = reader.GetOrdinal("Nombres");
+                int posApellidos = reader.GetOrdinal("Apellidos");
+                int posTipoDocumento = reader.GetOrdinal("TipoDocumento");
+                int posNumDocumento = reader.GetOrdinal("NumDocumento");
+                int posDireccion = reader.GetOrdinal("Direccion");
+                int posTelefono = reader.GetOrdinal("Telefono");
+                int posEmail = reader.GetOrdinal("Email");
 
+                while ( await reader.ReadAsync())
+                {                    
+                    objCliente = new Cliente();
+                    objCliente.clienteID = reader.GetInt32(posclienteID);
+                    objCliente.TipoPersona = reader.GetString(posTipoPersona);
+                    objCliente.Nombres = reader.GetString(posNombres);
+                    objCliente.Apellidos = reader.GetString(posApellidos);
+                    objCliente.TipoDocumento = reader.GetString(posTipoDocumento);
+                    objCliente.NumDocumento = reader.GetString(posNumDocumento);
+                    objCliente.Direccion = reader.GetString(posDireccion);
+                    objCliente.Telefono = reader.GetString(posTelefono);
+                    objCliente.Email = reader.GetString(posEmail);
+                    lstCliente.Add(objCliente);
+                }
+             }
+            return lstCliente;
+        }
 
+     
     }
 }

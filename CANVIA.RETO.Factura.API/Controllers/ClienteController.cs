@@ -14,10 +14,13 @@ namespace CANVIA.RETO.Factura.API.Controllers
     {
         private readonly ClienteService _clienteService;
         private readonly ILoggerManager _logger;
-        public ClienteController(ClienteService clienteService, ILoggerManager logger)
+        private readonly brCliente _brCliente;
+
+        public ClienteController(ClienteService clienteService, ILoggerManager logger, brCliente brCliente)
         {
             _clienteService = clienteService;
             _logger = logger;
+            _brCliente = brCliente;
         }
 
 
@@ -48,6 +51,18 @@ namespace CANVIA.RETO.Factura.API.Controllers
             return Ok(result);
         }
 
+
+        [HttpGet("GetAll")]
+        public async Task<IActionResult> GetAllClienteAdo()
+        {
+            var result = await _brCliente.Listar();
+            if (result.Count() == 0)
+            {
+                _logger.LogInfo($"No existe registro de clientes en la base de datos");
+                return NotFound();
+            }
+            return Ok(result);
+        }
         [HttpPost]
         public async Task<IActionResult> CreateCliente([FromBody] ClienteForCreationDto clienteForCreationDto)
         {
