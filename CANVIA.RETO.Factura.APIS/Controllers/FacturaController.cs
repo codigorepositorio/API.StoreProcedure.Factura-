@@ -1,11 +1,14 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using CANVIA.RETO.Factura.Entities.DTOs;
 using CANVIA.RETO.Factura.Services;
 using LoggerServices;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CANVIA.RETO.Factura.API.Controllers
+namespace CANVIA.RETO.Factura.APIS.Controllers
 {
     [Route("api/Factura")]
     [ApiController]
@@ -34,7 +37,7 @@ namespace CANVIA.RETO.Factura.API.Controllers
 
 
 
-        [HttpGet("{codigo:int}", Name = "facturaCreate")]
+        [HttpGet("{codigo}", Name = "facturaCreate")]
         public async Task<IActionResult> GetAllFacturaById(int codigo)
         {
             var result = await _facturaService.GetById(codigo);
@@ -48,24 +51,24 @@ namespace CANVIA.RETO.Factura.API.Controllers
         }
 
 
-    [HttpPost]
-    public async Task<IActionResult> CreateFactura([FromBody] FacturaForCreatetion facturaForCreatetion)
-    {
-
-        if (facturaForCreatetion == null)
+        [HttpPost]
+        public async Task<IActionResult> CreateFactura([FromBody] FacturaForCreatetion facturaForCreatetion)
         {
-            _logger.LogError("El objeto facturaForCreatetion enviado desde el cliente es nulo.");
-            return BadRequest("No puede enviar una Factura nulo.");
-        }
-        if (!ModelState.IsValid)
-        {
-            _logger.LogError("Estado de modelo no válido para el objeto facturaForCreatetion");
-            return UnprocessableEntity(ModelState);
-        }
 
-        var result = await _facturaService.Create(facturaForCreatetion);
-        return CreatedAtRoute("facturaCreate", new { codigo = result.FacturaCabeceraID }, result);
+            if (facturaForCreatetion == null)
+            {
+                _logger.LogError("El objeto facturaForCreatetion enviado desde el cliente es nulo.");
+                return BadRequest("No puede enviar una Factura nulo.");
+            }
+            if (!ModelState.IsValid)
+            {
+                _logger.LogError("Estado de modelo no válido para el objeto facturaForCreatetion");
+                return UnprocessableEntity(ModelState);
+            }
 
+            var result = await _facturaService.Create(facturaForCreatetion);
+            return CreatedAtRoute("facturaCreate", new { codigo = result.FacturaCabeceraID }, result);
+
+        }
     }
-}
 }

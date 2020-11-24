@@ -1,15 +1,18 @@
-﻿using System.Threading.Tasks;
-using CANVIA.RETO.Factura.Services;
-using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using CANVIA.RETO.Factura.Entities.DTOs;
+using CANVIA.RETO.Factura.Services;
 using LoggerServices;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
-namespace CANVIA.RETO.Factura.API.Controllers
-{
+namespace CANVIA.RETO.Factura.APIS.Controllers
+{    
 
     [ApiController]
-    [Route("api/cliente")]  
+    [Route("api/cliente")]
     public class ClienteController : ControllerBase
     {
         private readonly ClienteService _clienteService;
@@ -21,6 +24,17 @@ namespace CANVIA.RETO.Factura.API.Controllers
         }
 
 
+        [HttpGet]
+        public async Task<IActionResult> GetAllCliente()
+        {
+            var result = await _clienteService.GetAll();
+            if (result.Count() == 0)
+            {
+                _logger.LogInfo($"No existe registro de clientes en la base de datos");
+                return NotFound();
+            }
+            return Ok(result);
+        }
 
         [HttpGet("{id}", Name = "clienteCreate")]
         public async Task<IActionResult> GetByIdCliente(int id)
@@ -36,17 +50,6 @@ namespace CANVIA.RETO.Factura.API.Controllers
 
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAllCliente()
-        {
-            var result = await _clienteService.GetAll();
-            if (result.Count() == 0)
-            {
-                _logger.LogInfo($"No existe registro de clientes en la base de datos");
-                return NotFound();
-            }
-            return Ok(result);
-        }
 
         [HttpPost]
         public async Task<IActionResult> CreateCliente([FromBody] ClienteForCreationDto clienteForCreationDto)
@@ -63,7 +66,9 @@ namespace CANVIA.RETO.Factura.API.Controllers
             }
             var result = await _clienteService.Create(clienteForCreationDto);
             return CreatedAtRoute("clienteCreate", new { id = result.codigoCliente }, result);
+           
         }
+
 
         [HttpPut]
         public async Task<IActionResult> UpdateCliente([FromBody] ClienteForUpdateDto clienteForUpdateDto)

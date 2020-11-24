@@ -19,7 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CANVIA.RETO.Factura.Service
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Logger", "Logger", "{95DB89FC-AC69-4DB3-B0E1-C5AE6DDF5942}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoggerServices", "LoggerService\LoggerServices.csproj", "{D74764CE-D898-457B-878A-681DD448BA06}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoggerServices", "LoggerService\LoggerServices.csproj", "{D74764CE-D898-457B-878A-681DD448BA06}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CANVIA.RETO.Factura.APIS", "CANVIA.RETO.Factura.APIS\CANVIA.RETO.Factura.APIS.csproj", "{4FA95552-CA0D-4286-B17F-458C34828ACE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +49,10 @@ Global
 		{D74764CE-D898-457B-878A-681DD448BA06}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D74764CE-D898-457B-878A-681DD448BA06}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D74764CE-D898-457B-878A-681DD448BA06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FA95552-CA0D-4286-B17F-458C34828ACE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FA95552-CA0D-4286-B17F-458C34828ACE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FA95552-CA0D-4286-B17F-458C34828ACE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FA95552-CA0D-4286-B17F-458C34828ACE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

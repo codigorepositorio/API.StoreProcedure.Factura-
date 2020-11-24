@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using System.Net;
 
-namespace CANVIA.RETO.Factura.API.Extensions
+namespace CANVIA.RETO.Factura.APIS.Extensions
 {
     public static class ExceptionMiddlewareExtensions
     {

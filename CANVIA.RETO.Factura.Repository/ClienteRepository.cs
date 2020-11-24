@@ -125,7 +125,7 @@ namespace CANVIA.RETO.Factura.Repository
                 using (SqlCommand cmd = new SqlCommand("Usp_Cliente_GetById", sqlConn))
                 {
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.Parameters.Add(new SqlParameter("@ClienteID", clienteID));
+                    cmd.Parameters.Add(new SqlParameter("@clienteID", clienteID));
                     var cliente = new Cliente();
                     await sqlConn.OpenAsync();
 

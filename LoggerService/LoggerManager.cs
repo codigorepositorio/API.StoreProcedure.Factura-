@@ -1,8 +1,5 @@
-﻿
-using LoggerServices;
-using NLog;
-
-namespace LoggerService
+﻿using NLog;
+namespace LoggerServices
 {
     public class LoggerManager : ILoggerManager
     {
@@ -31,6 +28,5 @@ namespace LoggerService
         {
             logger.Warn(message);
         }
-
     }
 }

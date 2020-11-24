@@ -10,7 +10,7 @@ using System.Linq;
 
 
 
-namespace CANVIA.RETO.Factura.API.Extensions
+namespace CANVIA.RETO.Factura.APIS.Extensions
 {
     public static class ServiceExtensions
     {   

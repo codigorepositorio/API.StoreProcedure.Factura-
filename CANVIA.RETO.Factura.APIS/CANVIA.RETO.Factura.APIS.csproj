@@ -5,16 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Extensions\ExceptionMiddlewareExtensions.cs~RF1324be64.TMP" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.10" />
-    <PackageReference Include="NLog" Version="4.7.5" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CANVIA.RETO.Factura.Entities\CANVIA.RETO.Factura.Entities.csproj" />
     <ProjectReference Include="..\CANVIA.RETO.Factura.Services\CANVIA.RETO.Factura.Services.csproj" />
     <ProjectReference Include="..\LoggerService\LoggerServices.csproj" />
   </ItemGroup>
