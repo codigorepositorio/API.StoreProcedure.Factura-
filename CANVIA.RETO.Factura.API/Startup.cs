@@ -49,16 +49,16 @@ namespace CANVIA.RETO.Factura.API
             {
                 app.UseDeveloperExceptionPage();
             }
-            //else
-            //{
-            //    app.UseHsts();
-            //}
-            //app.UseHttpsRedirection();
-            //app.UseStaticFiles();
+            else
+            {
+                app.UseHsts();
+            }
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
 
             app.ConfigureCors();
 
-            //app.ConfigureExceptionHandler(logger);
+            app.ConfigureExceptionHandler(logger);
             //app.ConfigureCustomExceptionMiddleware();
 
             app.UseRouting();

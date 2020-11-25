@@ -26,14 +26,13 @@ namespace CANVIA.RETO.Factura.API.Extensions
 
         public static void ConfigureLoggerService(this IServiceCollection services)
         {
-            services.AddScoped<ILoggerManager,LoggerManager>();
+            services.AddSingleton<ILoggerManager,LoggerManager>();
         }
         public static void ConfigureServices(this IServiceCollection services)
         {
             //Cliente Service
             services.AddScoped<IClienteRepository, ClienteRepository>();
-            services.AddScoped<ClienteService>();
-            services.AddScoped<brCliente>();
+            services.AddScoped<ClienteService>();            
 
 
             //ItemDetalle Service

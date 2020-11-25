@@ -7,11 +7,10 @@ namespace CANVIA.RETO.Factura.Repository
 {
     public interface IClienteRepository
     {
-        Task<Cliente> Create(Cliente cliente);
-        Task<IEnumerable<Cliente>> GetAll();
-       Task<IEnumerable<Cliente>> Listar(SqlConnection con);
-        Task<Cliente> GetById(int clienteID);
-        void Update(Cliente cliente);
-        void Delete(int clienteID);
+        Task<int> Create(Cliente cliente, SqlConnection con);
+        Task<IEnumerable<Cliente>> GetAll(SqlConnection con);        
+        Task<Cliente> GetById(int clienteID, SqlConnection con);
+        bool Update(Cliente cliente, SqlConnection con);
+        bool Delete(int clienteID, SqlConnection con);
     }
 }

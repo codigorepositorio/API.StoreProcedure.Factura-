@@ -4,30 +4,29 @@ using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using CANVIA.RETO.Factura.Entities.DTOs;
 using LoggerServices;
+using System;
 
 namespace CANVIA.RETO.Factura.API.Controllers
 {
 
     [ApiController]
-    [Route("api/cliente")]  
+    [Route("api/cliente")]
     public class ClienteController : ControllerBase
     {
         private readonly ClienteService _clienteService;
         private readonly ILoggerManager _logger;
-        private readonly brCliente _brCliente;
+        
 
-        public ClienteController(ClienteService clienteService, ILoggerManager logger, brCliente brCliente)
+        public ClienteController(ClienteService clienteService, ILoggerManager logger)
         {
             _clienteService = clienteService;
-            _logger = logger;
-            _brCliente = brCliente;
+            _logger = logger;            
         }
-
-
 
         [HttpGet("{id}", Name = "clienteCreate")]
         public async Task<IActionResult> GetByIdCliente(int id)
         {
+
             var result = await _clienteService.GetById(id);
 
             if (result.codigoCliente == 0)
@@ -52,17 +51,6 @@ namespace CANVIA.RETO.Factura.API.Controllers
         }
 
 
-        [HttpGet("GetAll")]
-        public async Task<IActionResult> GetAllClienteAdo()
-        {
-            var result = await _brCliente.Listar();
-            if (result.Count() == 0)
-            {
-                _logger.LogInfo($"No existe registro de clientes en la base de datos");
-                return NotFound();
-            }
-            return Ok(result);
-        }
         [HttpPost]
         public async Task<IActionResult> CreateCliente([FromBody] ClienteForCreationDto clienteForCreationDto)
         {
@@ -114,10 +102,11 @@ namespace CANVIA.RETO.Factura.API.Controllers
 
             if (result.codigoCliente == 0)
             {
-                _logger.LogInfo($"Cliente con id: {id} no existe en la base de datos");
+                _logger.LogError($"Cliente con id: {id} no existe en la base de datos");
                 return NotFound();
             }
             _clienteService.Delete(result.codigoCliente);
+            _logger.LogInfo($"Cliente con id: {id} eliminado de la base de datos");
             return NoContent();
         }
     }
