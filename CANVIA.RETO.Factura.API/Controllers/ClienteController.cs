@@ -65,6 +65,11 @@ namespace CANVIA.RETO.Factura.API.Controllers
                 return UnprocessableEntity(ModelState);
             }
             var result = await _clienteService.Create(clienteForCreationDto);
+            if (result.codigoCliente ==0)
+            {
+                _logger.LogError("El cliente contiene ID = 0");
+                return BadRequest("Error al crear el cliente");
+            }
             return CreatedAtRoute("clienteCreate", new { id = result.codigoCliente }, result);
         }
 

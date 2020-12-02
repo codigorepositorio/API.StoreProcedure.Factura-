@@ -4,7 +4,6 @@ using CANVIA.RETO.Factura.Entities.DTOs;
 using CANVIA.RETO.Factura.Repository;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Linq;
 using System.Data.SqlClient;
 
 namespace CANVIA.RETO.Factura.Services
@@ -13,7 +12,6 @@ namespace CANVIA.RETO.Factura.Services
     {
         private readonly IClienteRepository _clienteRepository;
         private readonly IMapper _mapper;
-
         public ClienteService(IClienteRepository clienteRepository, IMapper mapper)
         {
             _clienteRepository = clienteRepository;
@@ -46,11 +44,11 @@ namespace CANVIA.RETO.Factura.Services
         public async Task<ClienteForCreationDto> Create(ClienteForCreationDto clienteForCreationDto)
         {
             using (SqlConnection con = new SqlConnection(CadenaConexion))
-            {
-                await con.OpenAsync();
+            {                
+                await con.OpenAsync();                
                 var clienteEntity = _mapper.Map<Cliente>(clienteForCreationDto);
                 var clienteIdReturn = await _clienteRepository.Create(clienteEntity, con);
-                clienteForCreationDto.codigoCliente = clienteIdReturn;
+                 clienteForCreationDto.codigoCliente = clienteIdReturn;
             }
             return clienteForCreationDto;
         }

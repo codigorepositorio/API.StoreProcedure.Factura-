@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
-
-
 namespace CANVIA.RETO.Factura.Repository
 {
     public class ClienteRepository : IClienteRepository
@@ -14,6 +12,10 @@ namespace CANVIA.RETO.Factura.Repository
         {
             SqlCommand cmd = new SqlCommand("Usp_Cliente_Create", con);
             cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlTransaction transaction;
+            transaction = con.BeginTransaction();
+            cmd.Transaction = transaction;
             cmd.Parameters.Add(new SqlParameter("@pTipoPersona", cliente.TipoPersona));
             cmd.Parameters.Add(new SqlParameter("@pNombres", cliente.Nombres));
             cmd.Parameters.Add(new SqlParameter("@pApellidos", cliente.Apellidos));
@@ -29,9 +31,17 @@ namespace CANVIA.RETO.Factura.Repository
                 Direction = ParameterDirection.Output
             });
 
-            await cmd.ExecuteNonQueryAsync();
-            int id = (int)cmd.Parameters["@pclienteID"].Value;
-            cliente.clienteID = id;
+            try
+            {
+                await cmd.ExecuteNonQueryAsync();
+                int id = (int)cmd.Parameters["@pclienteID"].Value;
+                transaction.Commit();
+                cliente.clienteID = id;
+            }
+            catch (System.Exception) 
+            {
+                transaction.Rollback();
+            }
             return cliente.clienteID;
         }
         public bool Update(Cliente cliente, SqlConnection con)
@@ -93,7 +103,7 @@ namespace CANVIA.RETO.Factura.Repository
             List<Cliente> lstCliente = null;
             SqlCommand cmd = new SqlCommand("Usp_Cliente_GetAll", con);
             cmd.CommandType = CommandType.StoredProcedure;
-
+             con.Open();
             SqlDataReader reader = cmd.ExecuteReader(CommandBehavior.SingleResult); //Lee el primer select, los demas ignora.
             if (reader != null)
             {
