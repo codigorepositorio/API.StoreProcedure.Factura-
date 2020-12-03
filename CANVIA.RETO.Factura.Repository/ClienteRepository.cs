@@ -38,7 +38,7 @@ namespace CANVIA.RETO.Factura.Repository
                 transaction.Commit();
                 cliente.clienteID = id;
             }
-            catch (System.Exception) 
+            catch (System.Exception)
             {
                 transaction.Rollback();
             }
@@ -102,8 +102,7 @@ namespace CANVIA.RETO.Factura.Repository
         {
             List<Cliente> lstCliente = null;
             SqlCommand cmd = new SqlCommand("Usp_Cliente_GetAll", con);
-            cmd.CommandType = CommandType.StoredProcedure;
-             con.Open();
+            cmd.CommandType = CommandType.StoredProcedure;            
             SqlDataReader reader = cmd.ExecuteReader(CommandBehavior.SingleResult); //Lee el primer select, los demas ignora.
             if (reader != null)
             {
