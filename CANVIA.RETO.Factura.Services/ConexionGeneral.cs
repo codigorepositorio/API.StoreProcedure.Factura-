@@ -5,12 +5,5 @@ namespace CANVIA.RETO.Factura.Services
     public class ConexionGeneral
     {
         public static string CadenaConexion { get; set; }
-
-
-
-        public void LogCentralizado(Exception ex)
-        {
-
-        }
     }
 }

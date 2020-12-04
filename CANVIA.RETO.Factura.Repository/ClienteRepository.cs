@@ -12,10 +12,7 @@ namespace CANVIA.RETO.Factura.Repository
         {
             SqlCommand cmd = new SqlCommand("Usp_Cliente_Create", con);
             cmd.CommandType = CommandType.StoredProcedure;
-
-            SqlTransaction transaction;
-            transaction = con.BeginTransaction();
-            cmd.Transaction = transaction;
+            
             cmd.Parameters.Add(new SqlParameter("@pTipoPersona", cliente.TipoPersona));
             cmd.Parameters.Add(new SqlParameter("@pNombres", cliente.Nombres));
             cmd.Parameters.Add(new SqlParameter("@pApellidos", cliente.Apellidos));
@@ -34,13 +31,12 @@ namespace CANVIA.RETO.Factura.Repository
             try
             {
                 await cmd.ExecuteNonQueryAsync();
-                int id = (int)cmd.Parameters["@pclienteID"].Value;
-                transaction.Commit();
+                int id = (int)cmd.Parameters["@pclienteID"].Value;                
                 cliente.clienteID = id;
             }
             catch (System.Exception)
             {
-                transaction.Rollback();
+                
             }
             return cliente.clienteID;
         }
